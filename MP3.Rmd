@@ -11,6 +11,7 @@ library(RMySQL)
 library(tidyverse)
 db <- dbConnect_scidb(dbname = "imdb")
 ```
+
 ```{r}
 #Find movies (kind_id = 1) and are sequels (link_type_id = 1)
 
@@ -39,6 +40,10 @@ ORDER BY production_year;
 sequels <-db%>% 
   dbGetQuery(sql)
 sequels
+```
+
+```{r}
+#Adding the production_year of prequel
 ```
 
 
