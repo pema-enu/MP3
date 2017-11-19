@@ -81,5 +81,13 @@ final <- movies %>%
 final
 ```
 
+```{r}
+#create ggplot
+ggplot(final, aes(x = prequel_release_year, y = avg_difference))+
+  ggtitle("Sequels Over the Years")+
+  geom_point(col = "lightcoral", size = 0.7)+
+  #create a line to see a general trend
+  geom_smooth(col = "gray34", size = 0.4, linetype = 1)
+```
 
 
