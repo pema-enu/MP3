@@ -68,6 +68,12 @@ movies <- sequels %>%
   #filter(prequel_release_year >= 1950) %>%
   #find the time between orginal and sequels for each movie
   mutate(time_between_sequels = production_year - prequel_release_year)
+
+#omit NA values 
+movies <- na.omit(movies)
+glimpse(movies)
+
+
 ```
 
 
