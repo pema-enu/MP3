@@ -1,0 +1,14 @@
+---
+title: "MP3"
+author: "Sneha Verma, Pema Choden, Tenzin Paldon"
+date: "November 6, 2017"
+output: html_document
+---
+
+```{r, message=FALSE}
+library(mdsr)
+library(RMySQL)
+library(tidyverse)
+db <- dbConnect_scidb(dbname = "imdb")
+```
+
