@@ -44,6 +44,30 @@ sequels
 
 ```{r}
 #Adding the production_year of prequel
+
+sql2 <- "SELECT id, title, production_year as prequel_release_year
+FROM title
+WHERE kind_id = 1 
+Group by id
+;"
+
+prequel_release <- db%>%
+  dbGetQuery(sql2)
+prequel_release
+```
+
+```{r}
+#Join sequels tbl and prequel_release tbl
+
+movies <- sequels %>%
+  #join so that the sequels are linked to their prequels
+  inner_join(prequel_release, by = c("linked_movie_id" = "id")) %>%
+  #rename columns to make tbl easier to read
+  rename(title = title.x, prequel_title = title.y) %>%
+  #look at movies after a certain time
+  #filter(prequel_release_year >= 1950) %>%
+  #find the time between orginal and sequels for each movie
+  mutate(time_between_sequels = production_year - prequel_release_year)
 ```
 
 
