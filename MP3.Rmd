@@ -4,11 +4,42 @@ author: "Sneha Verma, Pema Choden, Tenzin Paldon"
 date: "November 6, 2017"
 output: html_document
 ---
-
+##                 How Repetitive is Hollywood?
 ```{r, message=FALSE}
 library(mdsr)
 library(RMySQL)
 library(tidyverse)
 db <- dbConnect_scidb(dbname = "imdb")
 ```
+```{r}
+#Find movies (kind_id = 1) and are sequels (link_type_id = 1)
+
+sql <- "SELECT t.id, title, kind_id, production_year, linked_movie_id, mi.info as genre, mi2.info as country
+FROM imdb.title t
+#joining movie_link and movie_info by id 
+JOIN movie_link ml
+	ON t.id = ml.movie_id
+JOIN movie_info mi
+  ON t.id = mi.movie_id
+#second join with title and movie_info to see genre and country
+JOIN movie_info mi2
+  ON t.id = mi2.movie_id
+WHERE kind_id = 1 AND 
+      #movies that are only sequels
+      ml.link_type_id = 1 AND
+      #see genres of all movies
+      mi.info_type_id = 3 AND
+      #filter for only U.S made movies
+      mi2.info = 'USA'
+GROUP BY t.id
+ORDER BY production_year;
+"
+
+#save sql as a dataframe in R
+sequels <-db%>% 
+  dbGetQuery(sql)
+sequels
+```
+
+
 
