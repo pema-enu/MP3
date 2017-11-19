@@ -73,7 +73,12 @@ movies <- sequels %>%
 movies <- na.omit(movies)
 glimpse(movies)
 
-
+#Find the average time between originals and their sequels by year
+final <- movies %>%
+  group_by(prequel_release_year)%>%
+  #rename the mean as the avg_difference
+  summarise(avg_difference = mean(time_between_sequels))
+final
 ```
 
 
