@@ -5,11 +5,64 @@ date: "November 6, 2017"
 output: html_document
 ---
 ##                 How Repetitive is Hollywood?
+
+Is Hollywood more repetitive than it's ever been?
+
+How often are remakes, sequels made? 
+
+Lately, there has been a lot of criticism against remakes and sequels in Hollywood *(USA Today, 2016)*. One of most famous director of blockbusters, Steven Spielberg shared his concerns about this trend to Hollywood Reporter in June: “There’s going to be an implosion where three or four or maybe even a half-dozen megabudget movies are going to go crashing into the ground, and that’s going to change the paradigm.”
+
+We want to study if the trend of sequels and remakes are a modern thing, or if it has existed since the beginning of film industry.
+
+After some research on this topic, we realized that making sequels is no new phenomenon. The phenomenon of making sequels can be seen in one of the earliest forms of entertainment, oral storytelling. Homer’s Odyssey is in part a sequel to Iliad because of the widespread success of Iliad.  After oral poetry and storytelling, books are the oldest and most popular medium of entertainment. Some of the best sellers in late Victorian Era such as Robinson Crusoe (1719) and Gulliver’s Travels (1726) brought huge revenue to the publishers(Den of Geek). As a result of the huge economic gain, the publishers produced sequels like Memoirs of the Court of Lilliput (1727) and The New Gulliver (1730). This trend still exists in present day in TV Shows, books, and movies. We are all aware of the Fast and Furious Franchise, Hunger Games, Big Bang Theory, etc.
+
+##Why make sequels?
+
+ The first film, book, or show is the riskiest and most expensive. The makers have to invest a huge amount of money in advertising, building the story plot, costumes, etc. After the success of the original piece, there is a target population, set theme and story, and more budget to produce the sequels. As a result, sequels are relatively low risk and easy for the film makers or publishers.
+ 
+The tried and tested formula of making profit from sequels does not seem to be foolproof anymore.  Since 2015, the trend of failing sequels seems to increase. The audience is demanding more creativity and originality from Hollywood. In 2016, multiple sequels have failed such as The Divergent Series: Allegiant, Zoolander 2, The Huntsman: Winter’s War, War of the Planet of Ape, Pirates of the Caribbean: On Stranger Tides, Cars 3 and the list goes on! Even franchises like Pirates of the Caribbean is failing to cash in on the success of its prequels.  After seeing all the failures, we wondered if this implies that Hollywood would learn from its failures and invest in more original stories?
+
+##What we expect to see
+
+**Our prediction is both YES and NO!**
+
+We share Steven Spielberg’s thought that a paradigm shift is inevitable in this industry. Given that there are a lot of other mainstream entertainment such as TV shows like Game of Thrones, Web Series, YouTube, Netflix, Hulu etc., people do not have to watch movies or they can prefer not to watch them in theaters. As a result, the revenue of Hollywood can drop! However, we need to remember that US is NOT the only target audience of Hollywood. The North America contributes to only 1/3 of the Hollywood’s income. The rest of world such as China, India, and many Asian and African countries are contributing to Hollywood’s revenue. The remakes and sequels might be boring and repetitive to the American audience, but the remakes or sequels are fresh and new to the 2/3 of Hollywood’s income generators. Therefore, Hollywood might not stop cashing in on the success of the originals right away! 
+
 ```{r, message=FALSE}
 library(mdsr)
 library(RMySQL)
 library(tidyverse)
 db <- dbConnect_scidb(dbname = "imdb")
+```
+
+```{r}
+#All movies that are either sequels, remakes, spin offs or different versions of an original
+
+rep <- "SELECT t.id, title, kind_id, production_year, linked_movie_id, mi.info as genre, mi2.info as country, link_type_id
+FROM imdb.title t
+#join to see how a movie is linked to another movie
+JOIN movie_link ml
+	ON t.id = ml.movie_id
+#join to see info on movie like genre and country
+JOIN movie_info mi
+  ON t.id = mi.movie_id
+#second join with title and movie_info to see genre and country
+JOIN movie_info mi2
+  ON t.id = mi2.movie_id
+WHERE kind_id = 1 AND 
+      #movies that are sequels, remakes, spin offs or a version of       the original
+      ml.link_type_id IN (1,3,11,13) AND
+      #see genres of all movies
+      mi.info_type_id = 3 AND
+      #filter for only U.S made movies
+      mi2.info = 'USA'
+GROUP BY t.id
+ORDER BY production_year;
+"
+
+#save sql as a dataframe in R
+repetitions <-db%>% 
+  dbGetQuery(rep)
 ```
 
 ```{r}
