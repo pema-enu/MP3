@@ -98,8 +98,21 @@ We have selected 6 genres, Action, Animation, Comedy, Family, Horror, Romance an
 ```{r}
 #Which genre has the most sequels and remakes?
 ggplot(linktype1, aes(x = production_year, y = total_reps, col = link))+
-  geom_point(size = 0.6) +
-  facet_wrap(~genre)
+  ggtitle("Follow Up Movies over time (by genre)")+
+  scale_x_continuous("Year",
+                     breaks = seq(0,2020,50))+
+  scale_y_continuous("No. of Follow Up Movies")+
+  scale_color_manual(values = c("#E6C42C","#2C9AE6","#1F8325","#E6612C"),
+                     name = "Link Type",
+                     breaks = c("follows", "remake of", "spin off from", "version of"),
+                     labels = c("Sequel", "Remake", "Spin-Off", "Version"))+
+  geom_point(size = 0.6, alpha = 0.3) +
+  facet_wrap(~genre)+
+  theme(title = element_text(face = "bold", size = 10),
+        axis.title.x = element_text(size = 8),
+        axis.title.y = element_text(size = 8),
+        axis.text.x = element_text(size = 7),
+        axis.text.y = element_text(size = 7))
 ```
 
 Our analysis shows that remakes and sequels seem to be most popular for movies with genres like Action, Animation, Comedy and to some extent Horror. However, Family, Romance and Thriller movies don't seem to have many follow up movies. 
@@ -159,9 +172,9 @@ ggplot(diff_prod, aes(x = prequel_release_year, y = avg_difference))+
   #add a title
   ggtitle("Difference in Production Years Between Sequels
                     and Original Movies")+
-  geom_point(col = "lightcoral", size = 0.7)+
+  geom_point(col = "#F6B54A", size = 0.7)+
   #create a line to see a general trend
-  geom_smooth(col = "gray34", size = 0.4, linetype = 1)+
+  geom_smooth(col = "#0F75EA", size = 0.4, linetype = 1)+
   scale_x_continuous("Production Year (Original Film)",
                      breaks = seq(0,2020,20))+
   scale_y_continuous("Average Difference 
@@ -188,9 +201,9 @@ ggplot(diff_prod, aes(x = prequel_release_year, y = time_between_sequels))+
   scale_y_continuous("Original and Sequel 
   Production Year Difference",
                      breaks = seq(0,100, 40))+
-  geom_point(col = "lightcoral", size = 0.7)+
+  geom_point(col = "#5FBE67", size = 0.7, alpha = 0.3)+
   #create a line to see a general trend
-  geom_smooth(col = "gray34", size = 0.4, linetype = 1)+
+  geom_smooth(col = "#3A7FD9", size = 0.4, linetype = 1)+
   facet_wrap(~genre)+
   theme(title = element_text(face = "bold", size = 10),
         axis.title.x = element_text(size = 8),
@@ -214,6 +227,7 @@ ggplot(final2, aes(x = prequel_release_year, y = avg_difference, fill = genre))+
   scale_y_continuous("Average Difference in Original
 and Sequel Production Years",
                      breaks = seq(0,100, 40))+
+  scale_fill_hue("Genre")+
   #create a line to see a general trend
   geom_smooth(col = "gray34", size = 0.4, linetype = 1)+
   theme(title = element_text(face = "bold", size = 10),
