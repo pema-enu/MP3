@@ -176,6 +176,8 @@ From the plot above we see that the average difference between release years of 
 
 ##Back-To-Back Sequels
 
+In some instance we notice that sequels and the originals have the same production year. How could that be?
+
 ##Which genre has the fastest growing sequel industry?
 
 ```{r, warning = FALSE}
