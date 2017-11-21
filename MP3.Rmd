@@ -60,39 +60,62 @@ GROUP BY t.id
 ORDER BY production_year;
 "
 
-#save sql as a dataframe in R
+#save rep as a dataframe in R
 repetitions <-db%>% 
   dbGetQuery(rep)
 ```
+```{r}
+link <- "SELECT *
+from link_type
+Where id IN (1,3,11,13);"
+
+links <- db%>%
+  dbGetQuery(link)
+```
 
 ```{r}
-#Find movies (kind_id = 1) and are sequels (link_type_id = 1)
+#view the link_type of each movie
+link_type <- repetitions %>%
+  inner_join(links, by = c("link_type_id" = "id"))
+```
 
-sql <- "SELECT t.id, title, kind_id, production_year, linked_movie_id, mi.info as genre, mi2.info as country
-FROM imdb.title t
-#joining movie_link and movie_info by id 
-JOIN movie_link ml
-	ON t.id = ml.movie_id
-JOIN movie_info mi
-  ON t.id = mi.movie_id
-#second join with title and movie_info to see genre and country
-JOIN movie_info mi2
-  ON t.id = mi2.movie_id
-WHERE kind_id = 1 AND 
-      #movies that are only sequels
-      ml.link_type_id = 1 AND
-      #see genres of all movies
-      mi.info_type_id = 3 AND
-      #filter for only U.S made movies
-      mi2.info = 'USA'
-GROUP BY t.id
-ORDER BY production_year;
-"
+```{r}
+#omit null values
+link_types <- na.omit(link_type)
+```
 
-#save sql as a dataframe in R
-sequels <-db%>% 
-  dbGetQuery(sql)
-sequels
+```{r}
+#Filter to see most popular genres
+linktype1 <- link_types %>%
+  group_by(production_year, link) %>%
+  mutate(total_reps = count(link)) %>%
+  filter(genre %in% c("Comedy", "Romance", "Action", "Thriller","Horror", "Animation", "Family"))
+```
+
+##Which genres are the most repetitive?
+
+We have selected 6 genres, Action, Animation, Comedy, Family, Horror, Romance and Thriller to see which genres tended to have the most sequels, remakes, spin offs and different versions.
+
+```{r}
+#Which genre has the most sequels and remakes?
+ggplot(linktype1, aes(x = production_year, y = total_reps, col = link))+
+  geom_point(size = 0.6) +
+  facet_wrap(~genre)
+```
+
+Our analysis shows that remakes and sequels seem to be most popular for movies with genres like Action, Animation, Comedy and to some extent Horror. However, Family, Romance and Thriller movies don't seem to have many follow up movies. 
+
+The most popular types of follow-up movies 
+
+##Have sequels become more frequent?
+
+Now to test out predictions! Have sequels become more frequent? Do they come out in a shorter period of time? Let's find out!
+
+```{r}
+#Filter for only sequels (link_type_id = 1)
+
+sequels <- repetitions%>%
+  filter(link_type_id == 1)
 ```
 
 ```{r}
@@ -117,8 +140,6 @@ movies <- sequels %>%
   inner_join(prequel_release, by = c("linked_movie_id" = "id")) %>%
   #rename columns to make tbl easier to read
   rename(title = title.x, prequel_title = title.y) %>%
-  #look at movies after a certain time
-  #filter(prequel_release_year >= 1950) %>%
   #find the time between orginal and sequels for each movie
   mutate(time_between_sequels = production_year - prequel_release_year)
 
@@ -127,20 +148,56 @@ movies <- na.omit(movies)
 glimpse(movies)
 
 #Find the average time between originals and their sequels by year
-final <- movies %>%
+diff_prod <- movies %>%
   group_by(prequel_release_year)%>%
-  #rename the mean as the avg_difference
-  summarise(avg_difference = mean(time_between_sequels))
-final
+   filter(genre %in% c("Comedy", "Romance", "Action", "Thriller","Horror", "Animation", "Family")) %>%
+  mutate(avg_difference = mean(time_between_sequels))
 ```
 
 ```{r}
 #create ggplot
-ggplot(final, aes(x = prequel_release_year, y = avg_difference))+
+ggplot(diff_prod, aes(x = prequel_release_year, y = avg_difference))+
   ggtitle("Sequels Over the Years")+
   geom_point(col = "lightcoral", size = 0.7)+
   #create a line to see a general trend
   geom_smooth(col = "gray34", size = 0.4, linetype = 1)
 ```
 
+From the plot above we see that the average difference between release years of the orignal movie and its sequels have been changing over time. Prior to the 1940s, sequels came out quite frequently. However, movies produced between the 40s and 90s had sequels coming out much later than the original production year.
 
+##Back-To-Back Sequels
+
+##Which genre has the fastest growing sequel industry?
+```{r, warning = FALSE}
+ggplot(diff_prod, aes(x = prequel_release_year, y = time_between_sequels))+
+  ggtitle("Sequels Over the Years")+
+  geom_point(col = "lightcoral", size = 0.7)+
+  #create a line to see a general trend
+  geom_smooth(col = "gray34", size = 0.4, linetype = 1)+
+  facet_wrap(~genre)
+```
+
+```{r}
+avg_diff <- movies %>%
+  group_by(genre, prequel_release_year)%>%
+   filter(genre %in% c("Comedy", "Romance", "Action", "Thriller","Horror", "Animation", "Family")) %>%
+  summarise(avg_difference = mean(time_between_sequels)) %>%
+  filter(avg_difference >= 0)
+avg_diff
+```
+
+
+```{r, warning = FALSE}
+ggplot(final2, aes(x = prequel_release_year, y = avg_difference, fill = genre))+
+  ggtitle("Sequels Over the Years")+
+  #create a line to see a general trend
+  geom_smooth(col = "gray34", size = 0.4, linetype = 1)
+```
+
+Above we see the average difference in production time between an original movie and its sequels.
+
+What is interesting about the ggplot is we get to see the development of different genres over the years. Comedy seems to predate other genres, followed by Action and Animation. The newest genre seems to be Family, which also has the widest spread when it comes to the average spread between production year of original versus its sequel(s).
+
+##Conclusion
+
+##Limitations
