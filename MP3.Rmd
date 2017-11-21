@@ -26,7 +26,7 @@ The tried and tested formula of making profit from sequels does not seem to be f
 
 **Our prediction is both YES and NO!**
 
-We share Steven Spielberg’s thought that a paradigm shift is inevitable in this industry. Given that there are a lot of other mainstream entertainment such as TV shows like Game of Thrones, Web Series, YouTube, Netflix, Hulu etc., people do not have to watch movies or they can prefer not to watch them in theaters. As a result, the revenue of Hollywood can drop! However, we need to remember that US is NOT the only target audience of Hollywood. The North America contributes to only 1/3 of the Hollywood’s income. The rest of world such as China, India, and many Asian and African countries are contributing to Hollywood’s revenue. The remakes and sequels might be boring and repetitive to the American audience, but the remakes or sequels are fresh and new to the 2/3 of Hollywood’s income generators. Therefore, Hollywood might not stop cashing in on the success of the originals right away! 
+We share Steven Spielberg’s thought that a paradigm shift is inevitable in this industry. Given that there are a lot of other mainstream entertainment such as TV shows like _Game of Thrones_, Web Series, YouTube, Netflix, Hulu etc., people do not have to watch movies or they can prefer not to watch them in theaters. As a result, the revenue of Hollywood can drop! However, we need to remember that US is NOT the only target audience of Hollywood. The North America contributes to only 1/3 of the Hollywood’s income. The rest of world such as China, India, and many Asian and African countries are contributing to Hollywood’s revenue. The remakes and sequels might be boring and repetitive to the American audience, but the remakes or sequels are fresh and new to the 2/3 of Hollywood’s income generators. Therefore, Hollywood might not stop cashing in on the success of the originals right away! 
 
 ```{r, message=FALSE}
 library(mdsr)
@@ -93,7 +93,7 @@ linktype1 <- link_types %>%
 
 ##Which genres are the most repetitive?
 
-We have selected 6 genres, Action, Animation, Comedy, Family, Horror, Romance and Thriller to see which genres tended to have the most sequels, remakes, spin offs and different versions.
+We have selected 6 genres, --Action, Animation, Comedy, Family, Horror, Romance and Thriller-- to see which genres tended to have the most sequels, remakes, spin offs and different versions.
 
 ```{r}
 #Which genre has the most sequels and remakes?
@@ -189,7 +189,9 @@ From the plot above we see that the average difference between release years of 
 
 ##Back-To-Back Sequels
 
-In some instance we notice that sequels and the originals have the same production year. How could that be?
+In some instance we notice that sequels and the originals have the same production year. How could that be? 
+
+Back-to-back sequels we sh
 
 ##Which genre has the fastest growing sequel industry?
 
@@ -241,5 +243,25 @@ Above we see the average difference in production time between an original movie
 What is interesting about the ggplot is we get to see the development of different genres over the years. Comedy seems to predate other genres, followed by Action and Animation. The newest genre seems to be Family, which also has the widest spread when it comes to the average spread between production year of original versus its sequel(s).
 
 ##Conclusion
+Sequels, remakes, follow up films do not seem to be a new trend. Infact the idea of a series seems to predate the origins of film and take us back to oral story telling. 
 
-##Limitations
+Here are some general trends we see:
+
+- Of the genres we looked at Action, Animation and Comedy had the highest number of sequels, while follow up movies were not so popular for Thriller, Romance and Family movies.
+
+- The time between a sequel and the original film was very short before the 1940s. However this difference became wider between the 1960s and the 1980s. Since then there has been a general downward trend in the difference between the production year of an original movie and production year of its sequel.  
+
+##Way Forward
+- We could take a look at a wider range of genres like Sci-Fi, War, etc.
+
+- Are sequels, remakes and reboots specific to Hollywood? How do sequels perform in other film indistries, eg. Bollywood?
+
+- Do movies with sequels have a higher rank or make more money than movies without sequels?
+
+## Sources
+1. Bogage, Jacob. "Why film studios really like movie remakes" _Chicago Tribune_ 20 Nov., 2017: Web.
+2. Lambie, Ryan. "The origins and evolution of the movie sequel" _Den of Geek_ 22 May, 2011: Web. 
+3. Mandell, Andrea. "Grading the summer sequels:Which movies failed?" _USA Today_ 9 July, 2017: Web. 
+4. McClintock, Pamela. "Sequels Moviegoers Don't Want" _The Hollywood Reporter_ 5 June, 2016: Web. 
+5. Merry, Stephanie. "Moviegoers are sick of sequels. Here's why 'Blade Runner 2049' will go against the trend." _The  Washington Post_ 7 Oct, 2017: Web. 
+6. Stephen, F. "The Scale of Hollywood remakes and reboots" _Stephen Follows_ 22 June, 2015: Web.
