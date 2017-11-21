@@ -185,7 +185,30 @@ Group by id
 prequel_release <- db%>%
   dbGetQuery(sql1.5)
 ```
+```{r}
+#Join sequels tbl and prequel_release tbl
 
+movies <- sequels %>%
+  #join so that the sequels are linked to their prequels
+  inner_join(prequel_release, by = c("linked_movie_id" = "id")) %>%
+  #rename columns to make tbl easier to read
+  rename(title = title.x, prequel_title = title.y) %>%
+  #look at movies after a certain time
+  #filter(prequel_release_year >= 1950) %>%
+  #find the time between orginal and sequels for each movie
+  mutate(time_between_sequels = production_year - prequel_release_year)
+
+#omit NA values 
+movies <- na.omit(movies)
+glimpse(movies)
+
+#Find the average time between originals and their sequels by year
+final <- movies %>%
+  group_by(prequel_release_year)%>%
+   filter(genre %in% c("Comedy", "Romance", "Action", "Thriller","Horror", "Animation", "Family")) %>%
+  mutate(avg_difference = mean(time_between_sequels))
+```
+##How fast are sequels being produced?
 ```{r}
 #create ggplot
 ggplot(final, aes(x = prequel_release_year, y = avg_difference))+
