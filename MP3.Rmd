@@ -157,10 +157,19 @@ diff_prod <- movies %>%
 #create ggplot
 ggplot(diff_prod, aes(x = prequel_release_year, y = avg_difference))+
   #add a title
-  ggtitle("Sequels Over the Years")+
+  ggtitle("Difference in Production Years Between Sequels
+                    and Original Movies")+
   geom_point(col = "lightcoral", size = 0.7)+
   #create a line to see a general trend
-  geom_smooth(col = "gray34", size = 0.4, linetype = 1)
+  geom_smooth(col = "gray34", size = 0.4, linetype = 1)+
+  scale_x_continuous("Production Year (Original Film)",
+                     breaks = seq(0,2020,20))+
+  scale_y_continuous("Average Difference 
+in Production Years")+
+  theme(title = element_text(face = "bold", size = 10),
+        axis.title.x = element_text(size = 8),
+        axis.title.y = element_text(size = 8),
+        axis.text.x = element_text(size = 7))
 ```
 
 From the plot above we see that the average difference between release years of the orignal movie and its sequels have been changing over time. Prior to the 1940s, sequels came out quite frequently. However, movies produced between the 40s and 90s had sequels coming out much later than the original production year.
@@ -171,11 +180,20 @@ From the plot above we see that the average difference between release years of 
 
 ```{r, warning = FALSE}
 ggplot(diff_prod, aes(x = prequel_release_year, y = time_between_sequels))+
-  ggtitle("Sequels Over the Years")+
+  ggtitle("Sequels by Genre")+
+  scale_x_continuous("Production Year (Original Film)",
+                     breaks = seq(0,2020,40))+
+  scale_y_continuous("Original and Sequel 
+  Production Year Difference",
+                     breaks = seq(0,100, 40))+
   geom_point(col = "lightcoral", size = 0.7)+
   #create a line to see a general trend
   geom_smooth(col = "gray34", size = 0.4, linetype = 1)+
-  facet_wrap(~genre)
+  facet_wrap(~genre)+
+  theme(title = element_text(face = "bold", size = 10),
+        axis.title.x = element_text(size = 8),
+        axis.title.y = element_text(size = 8),
+        axis.text.x = element_text(size = 7))
 ```
 
 ```{r}
@@ -188,9 +206,18 @@ avg_diff <- movies %>%
 
 ```{r, warning = FALSE}
 ggplot(final2, aes(x = prequel_release_year, y = avg_difference, fill = genre))+
-  ggtitle("Sequels Over the Years")+
+  ggtitle("Sequels Over the Years (by genre)")+
+  scale_x_continuous("Year",
+                     breaks = seq(0,2020,40))+
+  scale_y_continuous("Average Difference in Original
+and Sequel Production Years",
+                     breaks = seq(0,100, 40))+
   #create a line to see a general trend
-  geom_smooth(col = "gray34", size = 0.4, linetype = 1)
+  geom_smooth(col = "gray34", size = 0.4, linetype = 1)+
+  theme(title = element_text(face = "bold", size = 10),
+        axis.title.x = element_text(size = 8),
+        axis.title.y = element_text(size = 8),
+        axis.text.x = element_text(size = 7))
 ```
 
 Above we see the average difference in production time between an original movie and its sequels.
