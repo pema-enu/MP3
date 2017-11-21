@@ -126,12 +126,52 @@ movies <- sequels %>%
 movies <- na.omit(movies)
 glimpse(movies)
 
-#Find the average time between originals and their sequels by year
-final <- movies %>%
-  group_by(prequel_release_year)%>%
-  #rename the mean as the avg_difference
-  summarise(avg_difference = mean(time_between_sequels))
-final
+#Filter to see most popular genres
+linktype1 <- link_types %>%
+  group_by(production_year, link) %>%
+  mutate(total_reps = count(link)) %>%
+  filter(genre %in% c("Comedy", "Romance", "Action", "Thriller","Horror", "Animation", "Family"))
+```
+#Which genres are the most repetitive?
+
+We have selected 6 genres --Action, Animation, Comedy, Family, Horror, Romance and Thriller-- to see which genres tend to have the most sequels, remakes, spin offs and different versions.
+
+```{r}
+#Which genre has the most sequels and remakes?
+ggplot(linktype1, aes(x = production_year, y = total_reps, col = link))+
+  geom_point(size = 0.6) +
+  facet_wrap(~genre)
+```
+Our analysis shows that remakes and sequels seem to be most popular for movies with genres like Action, Animation, Comedy and to some extent Horror. However, Family, Romance and Thriller movies don't seem to have many follow up movies. 
+
+##Have sequels become more frequent?
+
+Now to test out predictions! Have sequels become more frequent? Do they come out in a shorter period of time? Let's find out!
+```{r}
+#Find movies (kind_id = 1) and are sequels (link_type_id = 1)
+
+sql <- "SELECT t.id, title, kind_id, production_year, linked_movie_id, mi.info as genre, mi2.info as country
+FROM imdb.title t
+JOIN movie_link ml
+	ON t.id = ml.movie_id
+JOIN movie_info mi
+  ON t.id = mi.movie_id
+JOIN movie_info mi2
+  ON t.id = mi2.movie_id
+WHERE kind_id = 1 AND 
+      #movies that are only sequels
+      ml.link_type_id = 1 AND
+      #see genres of all movies
+      mi.info_type_id = 3 AND
+      #filter for only U.S made movies
+      mi2.info = 'USA'
+GROUP BY t.id
+ORDER BY production_year;
+"
+
+#save sql as a dataframe in R
+sequels <-db%>% 
+  dbGetQuery(sql)
 ```
 
 ```{r}
