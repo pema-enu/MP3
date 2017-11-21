@@ -135,7 +135,7 @@ linktype1 <- link_types %>%
 #Which genres are the most repetitive?
 
 We have selected 6 genres --Action, Animation, Comedy, Family, Horror, Romance and Thriller-- to see which genres tend to have the most sequels, remakes, spin offs and different versions.
-
+#Repition Amongst Genres
 ```{r}
 #Which genre has the most sequels and remakes?
 ggplot(linktype1, aes(x = production_year, y = total_reps, col = link))+
