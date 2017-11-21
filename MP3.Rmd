@@ -173,6 +173,18 @@ ORDER BY production_year;
 sequels <-db%>% 
   dbGetQuery(sql)
 ```
+```{r}
+#Table of all movies with the production year
+
+sql1.5 <- "SELECT id, title, production_year as prequel_release_year
+FROM title
+WHERE kind_id = 1 
+Group by id
+;"
+
+prequel_release <- db%>%
+  dbGetQuery(sql1.5)
+```
 
 ```{r}
 #create ggplot
