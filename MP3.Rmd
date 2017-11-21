@@ -147,13 +147,89 @@ movies <- sequels %>%
 movies <- na.omit(movies)
 glimpse(movies)
 
+#Filter to see most popular genres
+linktype1 <- link_types %>%
+  group_by(production_year, link) %>%
+  mutate(total_reps = count(link)) %>%
+  filter(genre %in% c("Comedy", "Romance", "Action", "Thriller","Horror", "Animation", "Family"))
+```
+#Which genres are the most repetitive?
+
+We have selected 6 genres --Action, Animation, Comedy, Family, Horror, Romance and Thriller-- to see which genres tend to have the most sequels, remakes, spin offs and different versions.
+#Repition Amongst Genres
+```{r}
+#Which genre has the most sequels and remakes?
+ggplot(linktype1, aes(x = production_year, y = total_reps, col = link))+
+  geom_point(size = 0.6) +
+  facet_wrap(~genre)
+```
+Our analysis shows that remakes and sequels seem to be most popular for movies with genres like Action, Animation, Comedy and to some extent Horror. However, Family, Romance and Thriller movies don't seem to have many follow up movies. 
+
+##Have sequels become more frequent?
+
+Now to test out predictions! Have sequels become more frequent? Do they come out in a shorter period of time? Let's find out!
+```{r}
+#Find movies (kind_id = 1) and are sequels (link_type_id = 1)
+
+sql <- "SELECT t.id, title, kind_id, production_year, linked_movie_id, mi.info as genre, mi2.info as country
+FROM imdb.title t
+JOIN movie_link ml
+	ON t.id = ml.movie_id
+JOIN movie_info mi
+  ON t.id = mi.movie_id
+JOIN movie_info mi2
+  ON t.id = mi2.movie_id
+WHERE kind_id = 1 AND 
+      #movies that are only sequels
+      ml.link_type_id = 1 AND
+      #see genres of all movies
+      mi.info_type_id = 3 AND
+      #filter for only U.S made movies
+      mi2.info = 'USA'
+GROUP BY t.id
+ORDER BY production_year;
+"
+
+#save sql as a dataframe in R
+sequels <-db%>% 
+  dbGetQuery(sql)
+```
+```{r}
+#Table of all movies with the production year
+
+sql1.5 <- "SELECT id, title, production_year as prequel_release_year
+FROM title
+WHERE kind_id = 1 
+Group by id
+;"
+
+prequel_release <- db%>%
+  dbGetQuery(sql1.5)
+```
+```{r}
+#Join sequels tbl and prequel_release tbl
+
+movies <- sequels %>%
+  #join so that the sequels are linked to their prequels
+  inner_join(prequel_release, by = c("linked_movie_id" = "id")) %>%
+  #rename columns to make tbl easier to read
+  rename(title = title.x, prequel_title = title.y) %>%
+  #look at movies after a certain time
+  #filter(prequel_release_year >= 1950) %>%
+  #find the time between orginal and sequels for each movie
+  mutate(time_between_sequels = production_year - prequel_release_year)
+
+#omit NA values 
+movies <- na.omit(movies)
+glimpse(movies)
+
 #Find the average time between originals and their sequels by year
 diff_prod <- movies %>%
   group_by(prequel_release_year)%>%
    filter(genre %in% c("Comedy", "Romance", "Action", "Thriller","Horror", "Animation", "Family")) %>%
   mutate(avg_difference = mean(time_between_sequels))
 ```
-
+##How fast are sequels being produced?
 ```{r}
 #create ggplot
 ggplot(diff_prod, aes(x = prequel_release_year, y = avg_difference))+
