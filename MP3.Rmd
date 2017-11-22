@@ -191,7 +191,7 @@ From the plot above we see that the average difference between release years of 
 
 In some instance we notice that sequels and the originals have the same production year. How could that be? 
 
-Back-to-back sequels we sh
+Back-to-back sequels are shot to reduce costs and time taken to film. Examples of sequels filmed back-to-back are The Lord of the Rings trilogy, Kill Bill (one film split into two 'volumes') and Harry Potter and the Deathly Hallows (Part 1 and 2).
 
 ##Which genre has the fastest growing sequel industry?
 
@@ -222,7 +222,7 @@ avg_diff <- movies %>%
 
 
 ```{r, warning = FALSE}
-ggplot(final2, aes(x = prequel_release_year, y = avg_difference, fill = genre))+
+ggplot(avg_diff, aes(x = prequel_release_year, y = avg_difference, fill = genre))+
   ggtitle("Sequels Over the Years (by genre)")+
   scale_x_continuous("Year",
                      breaks = seq(0,2020,40))+
