@@ -1,16 +1,24 @@
 ---
-title: "MP3"
+title: "MP4"
 author: "Sneha Verma, Pema Choden, Tenzin Paldon"
-date: "November 6, 2017"
 output: 
   html_document:
     code_folding: hide
+    theme: cosmo
+    include:
+        after_body: footer.html
+    css: style.css
+date: "`r format(Sys.Date(), '%B %e, %Y')`"
 ---
-##                 Is Hollywood Just a Remake Factory?
+<center> <h1> **Is Hollywood Just a Remake Factory?** </h1> </center>
 
-![Alt Text](https://media1.tenor.com/images/594d5dc0bf9340aaee6e1bfbccfbdc9e/tenor.gif)
+<br>
 
-If you googled [‘movies playing near me’](https://www.google.com/search?q=movies+playing+near+me&rlz=1C5CHFA_enUS769US769&oq=movies+playing+near+me&aqs=chrome..69i57j0l5.2614j0j7&sourceid=chrome&ie=UTF-8), chances are that you will find that a good number of the results are remakes or sequels.
+<div style="text-align: center;"><IMG SRC="https://media1.tenor.com/images/594d5dc0bf9340aaee6e1bfbccfbdc9e/tenor.gif" ALT="image"></div>
+
+<br>
+
+If you googled [*‘movies playing near me’*](https://www.google.com/search?q=movies+playing+near+me&rlz=1C5CHFA_enUS769US769&oq=movies+playing+near+me&aqs=chrome..69i57j0l5.2614j0j7&sourceid=chrome&ie=UTF-8), chances are that you will find that a good number of the results are remakes or sequels.
 
 Humankind wants to find out how the story ends but we also want to know what comes after the ending. That is why cliffhangers exist, because Hollywood knows the audience always wants more. 
 
@@ -119,9 +127,9 @@ ggplot(linktype1, aes(x = production_year, y = total_reps, col = link))+
         axis.text.y = element_text(size = 7))
 ```
 
-With the universes of [DC](http://www.dccomics.com/) and [Marvel](http://marvel.com/universe/Main_Page#axzz50zC0gmhF) comics, it should come to no surprise that the genre with the most sequels and remakes is Action [^1].
+With the universes of [DC](http://www.dccomics.com/) and [Marvel](http://marvel.com/universe/Main_Page#axzz50zC0gmhF) comics, it should come to no surprise that the genre with the most sequels and remakes is Action[^1].
 
-Apart from a few exceptions, Romance movies have barely taken part in the sequel trend (insert another interesting footnote about romance films) [^2]. This is also true for Thrillers and Family movies.
+Apart from a few exceptions, Romance movies have barely taken part in the sequel trend (insert another interesting footnote about romance films)[^2]. This is also true for Thrillers and Family movies.
 
 On a general scale however, Hollywood has always been repetitive, and it’s not just hollywood. Any form of storytelling has always made use of repetition, retelling the story to keep it interesting for a new audience and so, alive for a long time.
 
@@ -164,7 +172,6 @@ movies <- sequels %>%
 
 #omit NA values 
 movies <- na.omit(movies)
-movies
 
 movies <- movies %>%
   filter(time_between_sequels <= 10)
