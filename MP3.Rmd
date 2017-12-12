@@ -4,10 +4,7 @@ author: "Sneha Verma, Pema Choden, Tenzin Paldon"
 output: 
   html_document:
     code_folding: hide
-    theme: cosmo
-    include:
-        after_body: footer.html
-    css: style.css
+    theme: lumen
 date: "`r format(Sys.Date(), '%B %e, %Y')`"
 ---
 <center> <h1> **Is Hollywood Just a Remake Factory?** </h1> </center>
@@ -137,7 +134,7 @@ Homer’s Odyssey is in part a sequel to Iliad. After oral poetry and storytelli
 
 As a result of this huge economic gain, the publishers produced sequels like Memoirs of the Court of Lilliput (1727) and The New Gulliver (1730). This trend still exists in present day in TV Shows, books, and movies. 
 
-#Has Hollywood started reproducing films faster?
+# **Has Hollywood started reproducing films faster?**
 
 ```{r}
 #Filter for only sequels (link_type_id = 1)
