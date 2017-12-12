@@ -2,9 +2,11 @@
 title: "MP3"
 author: "Sneha Verma, Pema Choden, Tenzin Paldon"
 date: "November 6, 2017"
-output: html_document
+output: 
+  html_document:
+    code_folding: hide
 ---
-##                 How Repetitive is Hollywood?
+##                 Is Hollywood Just a Remake Factory?
 
 Is Hollywood more repetitive than it's ever been?
 
