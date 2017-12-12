@@ -5,17 +5,24 @@ output:
   html_document:
     code_folding: hide
     theme: lumen
+fig_width: 20
+fig_height: 50
+df_print: paged
 date: "`r format(Sys.Date(), '%B %e, %Y')`"
+time: "`r format(Sys.Time(), '%H)x"
 ---
+
+Get the data on [GitHub](https://github.com/pema-enu/MP3)
+
 <center> <h1> **Is Hollywood Just a Remake Factory?** </h1> </center>
 
 <br>
-
-<div style="text-align: center;"><IMG SRC="https://media1.tenor.com/images/594d5dc0bf9340aaee6e1bfbccfbdc9e/tenor.gif" ALT="image"></div>
-
-<br>
-
 If you googled [*‘movies playing near me’*](https://www.google.com/search?q=movies+playing+near+me&rlz=1C5CHFA_enUS769US769&oq=movies+playing+near+me&aqs=chrome..69i57j0l5.2614j0j7&sourceid=chrome&ie=UTF-8), chances are that you will find that a good number of the results are remakes or sequels.
+
+```{r, fig.retina=NULL, out.width=1000, echo=FALSE}
+knitr::include_graphics("https://media1.tenor.com/images/594d5dc0bf9340aaee6e1bfbccfbdc9e/tenor.gif")
+```
+![*Max Greenfield as Schmidt in "New Girl"*](https://media1.tenor.com/images/594d5dc0bf9340aaee6e1bfbccfbdc9e/tenor.gif) {width = 300px}
 
 Humankind wants to find out how the story ends but we also want to know what comes after the ending. That is why cliffhangers exist, because Hollywood knows the audience always wants more. 
 
@@ -35,6 +42,7 @@ We wanted to see if this trend was similar across popular genres like Action, Ho
 library(mdsr)
 library(RMySQL)
 library(tidyverse)
+library(DT)
 db <- dbConnect_scidb(dbname = "imdb")
 ```
 
@@ -104,7 +112,7 @@ linktype1 <- link_types %>%
   filter(genre %in% c("Comedy", "Romance", "Action", "Thriller","Horror", "Animation", "Family"))
 ```
 
-```{r}
+```{r fig.align="center"}
 #Which genre has the most sequels and remakes?
 ggplot(linktype1, aes(x = production_year, y = total_reps, col = link))+
   ggtitle("Follow Up Movies over time (by genre)")+
@@ -124,9 +132,9 @@ ggplot(linktype1, aes(x = production_year, y = total_reps, col = link))+
         axis.text.y = element_text(size = 7))
 ```
 
-With the universes of [DC](http://www.dccomics.com/) and [Marvel](http://marvel.com/universe/Main_Page#axzz50zC0gmhF) comics, it should come to no surprise that the genre with the most sequels and remakes is Action[^1].
+With the universes of [DC](http://www.dccomics.com/) and [Marvel](http://marvel.com/universe/Main_Page#axzz50zC0gmhF) comics, it should come to no surprise that the genre with the most sequels and remakes is within the genre of Action^[].
 
-Apart from a few exceptions, Romance movies have barely taken part in the sequel trend (insert another interesting footnote about romance films)[^2]. This is also true for Thrillers and Family movies.
+Apart from a few exceptions, Romance movies have barely taken part in the sequel trend (insert another interesting footnote about romance films)^[]. This is also true for Thrillers and Family movies.
 
 On a general scale however, Hollywood has always been repetitive, and it’s not just hollywood. Any form of storytelling has always made use of repetition, retelling the story to keep it interesting for a new audience and so, alive for a long time.
 
@@ -180,7 +188,7 @@ diff_prod <- movies %>%
   mutate(avg_difference = mean(time_between_sequels))
 ```
 
-```{r}
+```{r fig.align="center"}
 #create ggplot
 ggplot(diff_prod, aes(x = prequel_release_year, y = avg_difference))+
   #add a title
@@ -200,11 +208,11 @@ in Production Years")+
         axis.text.x = element_text(size = 7))
 ```
 
-In the graph above, the trend seems to show that sequels are being produced at a much faster rate than they were before. The average difference between the the production year of the sequels and its orignal has become smaller as we enter the 21st century. So eventhough Hollywood has always been repetitive, in more recent years it's repetitiveness is becoming more apparent than is actually was. 
+In the graph above^[We are only looking at movies with runtimes of atleast 80 minutes. Older movies have a greater opportunity of being remade or having a sequel so we are only looking at sequels that came out within 10 years of the production of the original film], the trend seems to show that sequels are being produced at a much faster rate than they were before. The average difference between the the production year of the sequels and its orignal has become smaller as we enter the 21st century. So eventhough Hollywood has always been repetitive, in more recent years it's repetitiveness is becoming more apparent than it actually was. 
 
-The first film, or show is the riskiest and most expensive. The makers have to invest a huge amount of money in advertising, building the story plot, costumes, etc. After the success of the original, there is a target population, set theme and story, and more budget to produce the sequels (https://www.forbes.com/sites/katiesola/2016/02/25/want-to-produce-a-profitable-movie-make-a-sequel/#59928917472e). As a result, sequels are relatively low risk and easier for the film makers or publishers to get behind. 
+The first film, or show is the riskiest and most expensive. The makers have to invest a huge amount of money in advertising, building the story plot, costumes, etc. After the success of the original, there is a target population, set theme and story, and more budget to produce the sequels (Sola, 2016). As a result, sequels are relatively low risk and easier for the film makers or publishers to get behind. 
 
-Moreover we need to keep in mind that the US is NOT the only target audience for Hollywood. North America contributes to only 1/3 of Hollywood’s total income (http://www.economist.com/node/18178291). The rest of world including many Asian and African countries also add to Hollywood’s revenue. The remakes might be boring and repetitive to the American audience, but they are fresh and new to the 2/3 of Hollywood’s income generators (http://www.economist.com/node/18178291) [^3]. Therefore, Hollywood might not stop cashing in on the success of the originals right away!
+Moreover we need to keep in mind that the US is NOT the only target audience for Hollywood. North America contributes to only 1/3 of Hollywood’s total income (The Economist, 2011). The rest of world including many Asian and African countries also add to Hollywood’s revenue. The remakes might be boring and repetitive to the American audience, but they are fresh and new to the 2/3 of Hollywood’s income generators (The Economist, 2011)^[3]. Therefore, Hollywood might not stop cashing in on the success of the originals right away!
 
 
 ## Sources
@@ -213,4 +221,7 @@ Moreover we need to keep in mind that the US is NOT the only target audience for
 3. Mandell, Andrea. "Grading the summer sequels:Which movies failed?" _USA Today_ 9 July, 2017: Web. 
 4. McClintock, Pamela. "Sequels Moviegoers Don't Want" _The Hollywood Reporter_ 5 June, 2016: Web. 
 5. Merry, Stephanie. "Moviegoers are sick of sequels. Here's why 'Blade Runner 2049' will go against the trend." _The  Washington Post_ 7 Oct, 2017: Web. 
-6. Stephen, F. "The Scale of Hollywood remakes and reboots" _Stephen Follows_ 22 June, 2015: Web.
+6. Sola, Katie. “Want To Produce A Profitable Movie? Make A Sequel.” Forbes, Forbes Magazine, 25 Feb. 2016, www.forbes.com/sites/katiesola/2016/02/25/want-to-produce-a-profitable-movie-make-a-sequel/.
+7. Stephen, F. "The Scale of Hollywood remakes and reboots" _Stephen Follows_ 22 June, 2015: Web.
+8. The Economist. “Bigger Abroad.” The Economist, The Economist Newspaper, 19 Feb. 2011, www.economist.com/node/18178291.
+
