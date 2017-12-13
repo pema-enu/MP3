@@ -7,7 +7,6 @@ output:
     theme: lumen
 date: "`r format(Sys.time(), '%B %e, %Y at %H:%M:%S')`"
 ---
-
 Get the data on [GitHub](https://github.com/pema-enu/MP3)
 
 <center>
@@ -220,7 +219,16 @@ Despite the advantage of sequel making, there has been a lot of criticism agains
 
 > *“There’s going to be an implosion where three or four or maybe even a half-dozen mega budget movies are going to go crashing into the ground, and that’s going to change the paradigm.”* 
 
-Ironically, Spielberg himself is guilty of following this trend in 1997 with the film [*The Lost World: Jurassic Park*](http://www.imdb.com/title/tt0119567/)^[Spielberg directed The Lost World: Jurassic Park, a sequel to Jurassic Park]. However, we share his concerns and believe that there should be more diverse stories and film making styles in the industry. 
+Ironically, Spielberg himself is guilty of following this trend in 1997 with the film [*The Lost World: Jurassic Park*](http://www.imdb.com/title/tt0119567/)^[Spielberg directed The Lost World: Jurassic Park, a sequel to Jurassic Park]. However, we share his concerns and believe that there should be more diverse stories and film making styles in the industry.
+
+Why? Because otherwise, Hollywood will not be considered a platform of entertainment that people could turn to. The continuation of a lack of creativity could also mean that Hollywood will not a major source of employment if this trend continues. Even though it would take a long time for this to happen and hopefully never does but with the age of the cell-phone one never knows. Hollywood needs an increase in creativity if it wants to still be considered a platform of entertainment that people turn to. As we mentioned before they are now many sources of entertainment available to people.  
+
+The tried and tested formula of making profit from sequels does not seem to be foolproof anymore. Since 2015, the number of failed sequels seems to have increased. The audience is demanding more creativity and originality from Hollywood. In 2016, multiple sequels have failed such as The Divergent Series: Allegiant, Zoolander 2, The Huntsman: Winter’s War, War of the Planet of Ape. Even franchises like Pirates of the Caribbean is failing to cash in on the success of its prequels. 
+
+With alternate entertainment options such as TV shows (like Game of Thrones), Web Series, YouTube, Netflix, Hulu etc., people do not have to watch movies or they can choose not to watch them in theaters. If Hollywood continues with the trend of making sequels and remakes, the audience does not have any incentive to spend their hard-earned money on a plotline they’ve probably already seen before.
+
+Just like humans, Hollywood is also torn. Do they keep making sequels to popular movies to cater to our curiosity and make some (a lot of) extra cash? Or will Hollywood favor more fresh and original storylines?
+
 
 ## Sources
 1. Bogage, Jacob. "Why film studios really like movie remakes" _Chicago Tribune_ 20 Nov., 2017: Web.
@@ -231,4 +239,3 @@ Ironically, Spielberg himself is guilty of following this trend in 1997 with the
 6. Sola, Katie. “Want To Produce A Profitable Movie? Make A Sequel.” Forbes, Forbes Magazine, 25 Feb. 2016, www.forbes.com/sites/katiesola/2016/02/25/want-to-produce-a-profitable-movie-make-a-sequel/.
 7. Stephen, F. "The Scale of Hollywood remakes and reboots" _Stephen Follows_ 22 June, 2015: Web.
 8. The Economist. “Bigger Abroad.” The Economist, The Economist Newspaper, 19 Feb. 2011, www.economist.com/node/18178291.
-
