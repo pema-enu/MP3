@@ -1,28 +1,26 @@
 ---
-title: "MP4"
+title: <center> <h1> **Is Hollywood Just a Remake Factory?** </h1> </center>
 author: "Sneha Verma, Pema Choden, Tenzin Paldon"
 output: 
   html_document:
     code_folding: hide
     theme: lumen
-fig_width: 20
-fig_height: 50
-df_print: paged
-date: "`r format(Sys.Date(), '%B %e, %Y')`"
-time: "`r format(Sys.Time(), '%H)x"
+date: "`r format(Sys.time(), '%B %e, %Y at %H:%M:%S')`"
 ---
 
 Get the data on [GitHub](https://github.com/pema-enu/MP3)
 
-<center> <h1> **Is Hollywood Just a Remake Factory?** </h1> </center>
+<center>
 
-<br>
+![*Max Greenfield as Schmidt in "New Girl"*](https://media1.tenor.com/images/594d5dc0bf9340aaee6e1bfbccfbdc9e/tenor.gif)
+
+</center>
+
+
+
+
+
 If you googled [*‘movies playing near me’*](https://www.google.com/search?q=movies+playing+near+me&rlz=1C5CHFA_enUS769US769&oq=movies+playing+near+me&aqs=chrome..69i57j0l5.2614j0j7&sourceid=chrome&ie=UTF-8), chances are that you will find that a good number of the results are remakes or sequels.
-
-```{r, fig.retina=NULL, out.width=1000, echo=FALSE}
-knitr::include_graphics("https://media1.tenor.com/images/594d5dc0bf9340aaee6e1bfbccfbdc9e/tenor.gif")
-```
-![*Max Greenfield as Schmidt in "New Girl"*](https://media1.tenor.com/images/594d5dc0bf9340aaee6e1bfbccfbdc9e/tenor.gif) {width = 300px}
 
 Humankind wants to find out how the story ends but we also want to know what comes after the ending. That is why cliffhangers exist, because Hollywood knows the audience always wants more. 
 
@@ -144,6 +142,8 @@ As a result of this huge economic gain, the publishers produced sequels like Mem
 
 # **Has Hollywood started reproducing films faster?**
 
+*Yes it has*
+
 ```{r}
 #Filter for only sequels (link_type_id = 1)
 
@@ -175,9 +175,11 @@ movies <- sequels %>%
   #find the time between orginal and sequels for each movie
   mutate(time_between_sequels = production_year - prequel_release_year)
 
+head(movies)
 #omit NA values 
 movies <- na.omit(movies)
 
+#COUNT IF  sequels came out within 10 years of the original
 movies <- movies %>%
   filter(time_between_sequels <= 10)
 
@@ -212,8 +214,13 @@ In the graph above^[We are only looking at movies with runtimes of atleast 80 mi
 
 The first film, or show is the riskiest and most expensive. The makers have to invest a huge amount of money in advertising, building the story plot, costumes, etc. After the success of the original, there is a target population, set theme and story, and more budget to produce the sequels (Sola, 2016). As a result, sequels are relatively low risk and easier for the film makers or publishers to get behind. 
 
-Moreover we need to keep in mind that the US is NOT the only target audience for Hollywood. North America contributes to only 1/3 of Hollywood’s total income (The Economist, 2011). The rest of world including many Asian and African countries also add to Hollywood’s revenue. The remakes might be boring and repetitive to the American audience, but they are fresh and new to the 2/3 of Hollywood’s income generators (The Economist, 2011)^[3]. Therefore, Hollywood might not stop cashing in on the success of the originals right away!
+Moreover we need to keep in mind that the US is NOT the only target audience for Hollywood. North America contributes to only 1/3 of Hollywood’s total income (The Economist, 2011). The rest of world including many Asian and African countries also add to Hollywood’s revenue. The remakes might be boring and repetitive to the American audience, but they are fresh and new to the 2/3 of Hollywood’s income generators (The Economist, 2011)^[]. Therefore, Hollywood might not stop cashing in on the success of the originals right away!
 
+Despite the advantage of sequel making, there has been a lot of criticism against remakes and sequels in Hollywood (USA Today, 2016). Steven Spielberg (arguably one of the most popular directors in Hollywood) shared his concerns about this trend to Hollywood Reporter in June: 
+
+> *“There’s going to be an implosion where three or four or maybe even a half-dozen mega budget movies are going to go crashing into the ground, and that’s going to change the paradigm.”* 
+
+Ironically, Spielberg himself is guilty of following this trend in 1997 with the film [*The Lost World: Jurassic Park*](http://www.imdb.com/title/tt0119567/)^[Spielberg directed The Lost World: Jurassic Park, a sequel to Jurassic Park]. However, we share his concerns and believe that there should be more diverse stories and film making styles in the industry. 
 
 ## Sources
 1. Bogage, Jacob. "Why film studios really like movie remakes" _Chicago Tribune_ 20 Nov., 2017: Web.
