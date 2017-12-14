@@ -174,7 +174,6 @@ movies <- sequels %>%
   #find the time between orginal and sequels for each movie
   mutate(time_between_sequels = production_year - prequel_release_year)
 
-head(movies)
 #omit NA values 
 movies <- na.omit(movies)
 
